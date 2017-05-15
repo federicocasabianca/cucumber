@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Library {
 
 	private final List<Book> store = new ArrayList<Book>();
@@ -22,6 +24,12 @@ public class Library {
 
 		return store.stream().filter(book -> {
 			return from.before(book.getPublished()) && end.getTime().after(book.getPublished());
+		}).sorted(Comparator.comparing(Book::getPublished).reversed()).collect(Collectors.toList());
+	}
+	
+	public List<Book> findBooks(final String bookTitle) {
+		return store.stream().filter(book -> {
+			return StringUtils.contains(book.getTitle(), bookTitle);
 		}).sorted(Comparator.comparing(Book::getPublished).reversed()).collect(Collectors.toList());
 	}
 }

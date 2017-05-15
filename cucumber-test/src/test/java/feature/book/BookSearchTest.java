@@ -6,6 +6,6 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(monochrome = true, plugin = "html:target/cucumber-tutorial-html")
+@CucumberOptions(monochrome = true, plugin = "html:target/cucumber-tutorial-html", tags = "@SIT")
 public class BookSearchTest {
 }

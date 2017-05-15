@@ -11,6 +11,7 @@ import com.tutorial.cucumber.book.Book;
 import com.tutorial.cucumber.book.Library;
 
 import cucumber.api.Format;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -30,13 +31,18 @@ public class BookSearchSteps {
 	public void setSearchParameters(@Format("yyyy") final Date from, @Format("yyyy") final Date to) {
 		result = library.findBooks(from, to);
 	}
+	
+	@When("^the customer searches for books with the title '(.+)'$")
+	public void setSearchByTitle(final String bookTitle) {
+		result = library.findBooks(bookTitle);
+	}
  
 	@Then("(\\d+) books should have been found$")
 	public void verifyAmountOfBooksFound(final int booksFound) {
 		assertThat(result.size(), equalTo(booksFound));
 	}
  
-	@Then("Book (\\d+) should have the title '(.+)'$")
+	@And("Book (\\d+) should have the title '(.+)'$")
 	public void verifyBookAtPosition(final int position, final String title) {
 		assertThat(result.get(position - 1).getTitle(), equalTo(title));
 	}
